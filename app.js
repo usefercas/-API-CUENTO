@@ -33,8 +33,16 @@ if (process.env.NODE_ENV !== 'test') {
     });
 }
 
+// Configuración de CORS
+const corsOptions = {
+    origin: 'https://elmundodelucas.netlify.app', // Cambia esto por el dominio de tu frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions)); // Usa el middleware CORS con opciones especificadas
+
 // Middleware
-app.use(cors()); // Usa el middleware CORS para permitir solicitudes de otros dominios
 app.use(express.json()); // Usa el middleware para parsear cuerpos de solicitudes en formato JSON
 app.use(express.urlencoded({ extended: true })); // Usa el middleware para parsear cuerpos de solicitudes con datos codificados en URL
 
