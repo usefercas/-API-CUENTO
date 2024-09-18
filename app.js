@@ -1,7 +1,6 @@
 const express = require('express'); // Importa Express para crear el servidor web
 const cors = require('cors'); // Importa CORS para permitir solicitudes desde otros dominios
 const mongoose = require('mongoose'); // Importa Mongoose para interactuar con MongoDB
-
 const app = express(); // Crea una instancia de la aplicación Express
 
 const DB_NAME = "cuentos_lucas"; // Nombre de la base de datos

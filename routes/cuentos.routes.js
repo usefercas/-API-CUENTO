@@ -23,5 +23,8 @@ router.delete('/eliminar/:id', controller.eliminarCuento);
 // Este endpoint manejará las solicitudes DELETE a '/api/cuentos/eliminar/:id'
 // El `:id` en la URL es un parámetro de ruta que representa el ID del cuento a eliminar
 // Llama al método `eliminarCuento` del controlador para procesar la solicitud de eliminación del cuento con el ID proporcionado
+// Ruta para obtener un cuento por ID
+//Ruta para obtener los libros por id 
+router.get('/obtener/:id', controller.obtenerCuentoPorId);
 
 module.exports = router; // Exporta el enrutador para que pueda ser usado en otras partes de la aplicación

@@ -98,3 +98,21 @@ module.exports.eliminarCuento = (req, res) => {
             res.status(500).json({ message: 'Error al eliminar el cuento', error: err.message });
         });
 };
+
+// Controlador para obtener un cuento por ID
+module.exports.obtenerCuentoPorId = (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: 'ID inválido' });
+    }
+
+    Cuento.findById(id)
+        .then(cuento => {
+            if (!cuento) {
+                return res.status(404).json({ message: 'Cuento no encontrado' });
+            }
+            res.status(200).json(cuento);
+        })
+        .catch(err => res.status(500).json({ message: 'Error al obtener el cuento', error: err.message }));
+};
