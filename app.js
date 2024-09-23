@@ -3,20 +3,15 @@ const cors = require('cors'); // Importa CORS para permitir solicitudes desde ot
 const mongoose = require('mongoose'); // Importa Mongoose para interactuar con MongoDB
 const app = express(); // Crea una instancia de la aplicación Express
 
-const DB_NAME = "cuentos_lucas"; // Nombre de la base de datos
-const URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017"; // URI de MongoDB, usa la variable de entorno si está definida, sino usa el valor por defecto
-const DB_URI = `${URI}/${DB_NAME}`; // Construye la URI completa para la base de datos
+const URI = process.env.MONGODB_URI || "mongodb+srv://usefercasta:usefercasta@api-cuento-cluster.jgfxf.mongodb.net/cuentos_lucas?retryWrites=true&w=majority"; // URI de MongoDB
 
 // Conectar solo si no estamos en el entorno de prueba
 if (process.env.NODE_ENV !== 'test') {
     // Conecta Mongoose a la base de datos
-    mongoose.connect(DB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(() => console.info(`Successfully connected to the database ${DB_URI}`)) // Mensaje de éxito si la conexión es exitosa
+    mongoose.connect(URI)
+    .then(() => console.info(`Successfully connected to the database ${URI}`)) // Mensaje de éxito si la conexión es exitosa
     .catch((error) => {
-        console.error(`An error occurred trying to connect to the database ${DB_URI}`, error); // Mensaje de error si la conexión falla
+        console.error(`An error occurred trying to connect to the database ${URI}`, error); // Mensaje de error si la conexión falla
         process.exit(1); // Sale del proceso con un código de error
     });
 
@@ -33,16 +28,8 @@ if (process.env.NODE_ENV !== 'test') {
     });
 }
 
-// Configuración de CORS
-const corsOptions = {
-    origin: 'https://elmundodelucas.netlify.app', // Cambia esto por el dominio de tu frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
-app.use(cors(corsOptions)); // Usa el middleware CORS con opciones especificadas
-
 // Middleware
+app.use(cors()); // Usa el middleware CORS para permitir solicitudes de otros dominios
 app.use(express.json()); // Usa el middleware para parsear cuerpos de solicitudes en formato JSON
 app.use(express.urlencoded({ extended: true })); // Usa el middleware para parsear cuerpos de solicitudes con datos codificados en URL
 
